@@ -1,0 +1,49 @@
+<idea-plugin>
+  <id>zovo.tensor-viewer</id>
+  <name>GGUF &amp; Safetensors Viewer</name>
+  <vendor url="https://github.com/theluckystrike">Zovo</vendor>
+  <description><![CDATA[
+<p>Open GGUF (.gguf), Safetensors (.safetensors), PyTorch (.pt, .pth, .ckpt, pytorch_model.bin) and NumPy (.npy, .npz) model files in a read-only viewer inside PyCharm, IntelliJ IDEA, DataSpell, CLion and the other IDEs on this platform.</p>
+<p>Double-click a model file in the Project view. You see every tensor with its dtype, shape and size, the model metadata and the parameter count, without loading the model in Python.</p>
+<h3>GGUF (llama.cpp, Ollama, LM Studio)</h3>
+<ul>
+  <li>The tensor list with the quantization type of each tensor (Q4_K, Q8_0, IQ4_XS, BF16 and more) and the bits per weight of the file.</li>
+  <li>The model facts at the top: architecture, context length, embedding size, layers, attention heads, tokenizer and file type.</li>
+  <li>All metadata keys, with long values such as the chat template and the token list folded.</li>
+  <li>Large files open fast. Only the header is read, so a 4 GB or a 70 GB GGUF opens in about a second.</li>
+</ul>
+<h3>Safetensors and PyTorch</h3>
+<ul>
+  <li>The safetensors header and its __metadata__, with dtype (F32, F16, BF16, F8 and the integer types), shape and byte size for each tensor.</li>
+  <li>PyTorch .pt, .pth and .ckpt checkpoints (zip or older pickle files) are read as data. Nothing in the file is run.</li>
+  <li>A .pth path file from site-packages or a .bin file that is not a PyTorch checkpoint keeps opening in the usual editor.</li>
+</ul>
+<h3>Values for the tensor you pick</h3>
+<ul>
+  <li>Min, max, mean, std, NaN and Inf counts, then exact median and percentiles.</li>
+  <li>A histogram, a heatmap for 2D tensors and an image view for H x W x 3 arrays. Quantized GGUF tensors are decoded for this.</li>
+  <li>A value table with paging, search and filter in the tensor list, and Save as .npy or CSV.</li>
+  <li>Only the bytes of that tensor are read, by range.</li>
+</ul>
+<p>Everything is read-only and offline. The viewer makes no network calls and never changes your file.</p>
+<p>Free and open source (MIT). Source code and issues: <a href="https://github.com/theluckystrike/tensor-viewer-jetbrains">github.com/theluckystrike/tensor-viewer-jetbrains</a>.</p>
+<h3>Support and more tools</h3>
+<ul>
+  <li><a href="https://github.com/sponsors/theluckystrike">Sponsor on GitHub</a> if this viewer saves you time.</li>
+  <li><a href="https://marketplace.visualstudio.com/items?itemName=zovo.tensor-viewer">NPZ &amp; NPY Viewer, PyTorch PTH, GGUF &amp; Safetensors</a> for VS Code, Cursor and Windsurf.</li>
+  <li><a href="https://plugins.jetbrains.com/plugin/35879-netcdf-hdf5--numpy-viewer">NetCDF, HDF5 &amp; NumPy Viewer</a> for .nc and .h5 files.</li>
+  <li><a href="https://plugins.jetbrains.com/plugin/35878-docx--pptx-viewer">DOCX &amp; PPTX Viewer</a> for Word and PowerPoint files.</li>
+  <li>All Zovo tools: <a href="https://github.com/theluckystrike">theluckystrike on GitHub</a>.</li>
+</ul>
+]]></description>
+  <change-notes><![CDATA[
+<p>0.1.0: first release. GGUF, Safetensors, PyTorch and NumPy viewer with the tensor list, model metadata, parameter count, stats, percentiles, histogram, heatmap, value table and export. Headers are read by range, so very large models open fast.</p>
+]]></change-notes>
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <fileType name="GGUF Model" implementationClass="zovo.tensor.TensorFileType" fieldName="GGUF" extensions="gguf"/>
+    <fileType name="Safetensors Model" implementationClass="zovo.tensor.TensorFileType" fieldName="SAFETENSORS" extensions="safetensors"/>
+    <fileEditorProvider implementation="zovo.tensor.TensorEditorProvider"/>
+  </extensions>
+</idea-plugin>
