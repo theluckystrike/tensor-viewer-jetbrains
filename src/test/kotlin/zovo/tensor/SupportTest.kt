@@ -3,7 +3,6 @@ package zovo.tensor
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -47,11 +46,11 @@ class SupportTest {
         val withRate = Support.footerHtml(true, "https://plugins.jetbrains.com/plugin/1/reviews")
         assertTrue(withRate, withRate.startsWith("<div class=\"zovo-support\">Support and more tools: <a href=\"https://plugins.jetbrains.com/plugin/1/reviews\">Rate on JetBrains Marketplace</a>"))
         assertFalse(Support.footerHtml(true, null).contains("Rate on"))
-        assertNull(Support.rateUrl(""))
+        assertEquals("https://plugins.jetbrains.com/plugin/index?xmlId=zovo.tensor-viewer", Support.rateUrl(""))
         assertEquals("https://plugins.jetbrains.com/plugin/42/reviews", Support.rateUrl("42"))
         for (u in listOf("https://github.com/theluckystrike/tensor-viewer-jetbrains", "https://github.com/sponsors/theluckystrike",
                 "itemName=zovo.tensor-viewer", "plugin/35879", "plugin/35878")) assertTrue(u, plain.contains(u))
-        assertFalse("no PayPal while funding.json has none", plain.contains("paypal", ignoreCase = true))
+        assertTrue("PayPal from funding.json", plain.contains("https://www.paypal.com/paypalme/najzzz"))
         assertTrue(plain.contains("NetCDF, HDF5 &amp; NumPy Viewer"))
     }
 }

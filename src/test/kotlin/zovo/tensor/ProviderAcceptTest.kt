@@ -93,4 +93,18 @@ class ProviderAcceptTest : BasePlatformTestCase() {
             assertTrue("took $ms ms", ms < 2000)
         } finally { dir.deleteRecursively() }
     }
+
+    fun testUnclaimedNumpyAndTorchFilesGetTensorDataTypeByContent() {
+        // Without this the IDE opens "Register New File Type Association" on a double-click (seen in the real-IDE gate).
+        for (f in listOf("arange_2x3_f4.npy", "bundle_stored.npz", "torch/checkpoint.pth", "torch/dtypes.pt", "torch/legacy.pth", "torch/lightning.ckpt", "torch/pytorch_model.bin")) {
+            // Unknown = the IDE would show the dialog. A type another plugin gives (.pt is a TextMate type) is fine: the provider still opens it.
+            assertFalse(f, vf(f).fileType is com.intellij.openapi.fileTypes.UnknownFileType)
+        }
+        for (f in listOf("arange_2x3_f4.npy", "bundle_stored.npz", "torch/pytorch_model.bin")) assertEquals(f, "Tensor Data", vf(f).fileType.name)
+        val text = myFixture.addFileToProject("d/firmware.bin", "plain bytes, not a model").virtualFile
+        assertFalse(TensorFileTypeDetector.matches("bin", "plain bytes, not a model".toByteArray(), 24))
+        assertFalse("Tensor Data" == text.fileType.name)
+        assertFalse(TensorFileTypeDetector.matches("npy", "PK\u0003\u0004".toByteArray(), 4))
+        assertTrue(TensorFileTypeDetector.matches("npz", byteArrayOf(0x50, 0x4b, 3, 4), 4))
+    }
 }

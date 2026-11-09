@@ -49,7 +49,7 @@ Settings, Plugins, Marketplace, search for "GGUF". Or download the zip from the 
 
 ## Support and more tools
 
-- [Sponsor on GitHub](https://github.com/sponsors/theluckystrike) if this viewer saves you time.
+- [Sponsor on GitHub](https://github.com/sponsors/theluckystrike) or [donate with PayPal](https://www.paypal.com/paypalme/najzzz) if this viewer saves you time.
 - [NPZ & NPY Viewer, PyTorch PTH, GGUF & Safetensors](https://marketplace.visualstudio.com/items?itemName=zovo.tensor-viewer) for VS Code, Cursor and Windsurf.
 - [NetCDF, HDF5 & NumPy Viewer](https://plugins.jetbrains.com/plugin/35879) for JetBrains IDEs.
 - [DOCX & PPTX Viewer](https://plugins.jetbrains.com/plugin/35878) for JetBrains IDEs.

@@ -29,7 +29,7 @@
 <p>Free and open source (MIT). Source code and issues: <a href="https://github.com/theluckystrike/tensor-viewer-jetbrains">github.com/theluckystrike/tensor-viewer-jetbrains</a>.</p>
 <h3>Support and more tools</h3>
 <ul>
-  <li><a href="https://github.com/sponsors/theluckystrike">Sponsor on GitHub</a> if this viewer saves you time.</li>
+  <li><a href="https://github.com/sponsors/theluckystrike">Sponsor on GitHub</a> or <a href="https://www.paypal.com/paypalme/najzzz">donate with PayPal</a> if this viewer saves you time.</li>
   <li><a href="https://marketplace.visualstudio.com/items?itemName=zovo.tensor-viewer">NPZ &amp; NPY Viewer, PyTorch PTH, GGUF &amp; Safetensors</a> for VS Code, Cursor and Windsurf.</li>
   <li><a href="https://plugins.jetbrains.com/plugin/35879-netcdf-hdf5--numpy-viewer">NetCDF, HDF5 &amp; NumPy Viewer</a> for .nc and .h5 files.</li>
   <li><a href="https://plugins.jetbrains.com/plugin/35878-docx--pptx-viewer">DOCX &amp; PPTX Viewer</a> for Word and PowerPoint files.</li>
@@ -44,6 +44,8 @@
   <extensions defaultExtensionNs="com.intellij">
     <fileType name="GGUF Model" implementationClass="zovo.tensor.TensorFileType" fieldName="GGUF" extensions="gguf"/>
     <fileType name="Safetensors Model" implementationClass="zovo.tensor.TensorFileType" fieldName="SAFETENSORS" extensions="safetensors"/>
+    <fileType name="Tensor Data" implementationClass="zovo.tensor.TensorFileType" fieldName="DATA"/>
+    <fileTypeDetector implementation="zovo.tensor.TensorFileTypeDetector"/>
     <fileEditorProvider implementation="zovo.tensor.TensorEditorProvider"/>
   </extensions>
 </idea-plugin>
